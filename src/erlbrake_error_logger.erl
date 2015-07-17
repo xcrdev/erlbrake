@@ -149,7 +149,7 @@ notify(Type, Reason, Format, Args, Extra) ->
     airbrake:notify(Type, Class, Message, Module, Line, Trace, Request).
 
 parse_reason({Reason, [MFA|_] = Trace})
-  when is_tuple(MFA) ->
+  when is_tuple(MFA), Reason =/= badmatch ->
     {Atom, DeepTrace} = parse_reason(Reason),
     {Atom, DeepTrace ++ Trace};
 parse_reason({Reason, []}) ->
